@@ -481,6 +481,7 @@ function UserDropdown({ small }: { small?: boolean }) {
   const { t } = useLocale();
   const query = useMeQuery();
   const user = query.data;
+
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
@@ -513,9 +514,15 @@ function UserDropdown({ small }: { small?: boolean }) {
   if (!user) {
     return null;
   }
+  const handleClick = () => {
+    setMenuOpen(true);
+  };
+
   return (
     <Dropdown open={menuOpen} onOpenChange={() => setHelpOpen(false)}>
-      <DropdownMenuTrigger asChild onClick={() => setMenuOpen(true)}>
+      <DropdownMenuTrigger
+        asChild
+        onClick={small && menuOpen ? () => console.log("do nothing") : handleClick}>
         <button className="group flex w-full cursor-pointer appearance-none items-center rounded-full p-2 text-left hover:bg-gray-100 sm:pl-3 md:rounded-none lg:pl-2">
           <span
             className={classNames(
